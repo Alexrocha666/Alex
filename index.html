@@ -3,17 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Player M3U</title>
+    <title>Player M3U</title>
+    <!-- Video.js -->
     <link href="https://cdn.jsdelivr.net/npm/video.js@7.11.4/dist/video-js.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/video.js@7.11.4/dist/video.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .player-container {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 900px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .video-js {
+            width: 100%;
+            height: auto;
+        }
+        .m3u-links {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .m3u-links a {
+            display: block;
+            margin-bottom: 10px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .m3u-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Player M3U - LHM Series</h1>
 
-    <!-- Player de Vídeo com M3U -->
-    <video id="my-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
-        <source src="http://www.lhmtv.tk/series/lhm-series.txt" type="application/x-mpegURL" />
-    </video>
+    <div class="player-container">
+        <h1>Player M3U</h1>
+        <!-- Video Player -->
+        <video id="my-player" class="video-js vjs-default-skin" controls preload="auto">
+            <source src="http://www.lhmtv.tk/series/lhm-series.txt" type="application/x-mpegURL" />
+        </video>
+
+        <div class="m3u-links">
+            <h3>Outros Links M3U:</h3>
+            <a href="http://example.com/filme1.m3u" target="_blank">Filme 1</a>
+            <a href="http://example.com/filme2.m3u" target="_blank">Filme 2</a>
+            <a href="http://example.com/serie1.m3u" target="_blank">Série 1</a>
+        </div>
+    </div>
 
     <script>
         var player = videojs('my-player', {
@@ -22,10 +74,20 @@
             controls: true,
             fluid: true
         });
-    </script>
 
-    <!-- Incorpora o script fornecido -->
-    <script src="https://gist.github.com/projectxtutoriais/58cfc2c3d85c680224367a4dfdbe378a.js"></script>
+        // Exemplo de como você pode adicionar a lógica de trocar a fonte
+        const links = document.querySelectorAll('.m3u-links a');
+        links.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                var newSrc = this.href;
+                var videoSource = player.el().getElementsByTagName('source')[0];
+                videoSource.src = newSrc;
+                player.load();
+                player.play();
+            });
+        });
+    </script>
 
 </body>
 </html>
