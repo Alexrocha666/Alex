@@ -1,37 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filme do Dropbox</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #141414; /* Fundo escuro estilo Netflix */
-            color: white;
-            text-align: center;
-        }
-        h1 {
-            margin: 20px;
-            color: #e50914; /* Vermelho Netflix */
-        }
-        video {
-            margin: 20px auto;
-            width: 80%;
-            max-width: 800px;
-            border: 3px solid #e50914;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-        }
-    </style>
+    <title>Meu Player M3U</title>
+    <link href="https://cdn.jsdelivr.net/npm/video.js@7.11.4/dist/video-js.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/video.js@7.11.4/dist/video.min.js"></script>
 </head>
 <body>
-    <h1>Filme do Dropbox</h1>
-    <video controls>
-        <source src="https://www.dropbox.com/scl/fi/2ou3c43hw9mrxtkvpavom/yyyuuuuu.mp4?rlkey=igo7xkm6x19336dfw4mb8ia1i&st=am6jktht&raw=1" type="video/mp4">
-        Seu navegador não suporta vídeos.
+    <h1>Player M3U - LHM Series</h1>
+    <video id="my-player" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+        <source src="http://www.lhmtv.tk/series/lhm-series.txt" type="application/x-mpegURL" />
     </video>
+
+    <script>
+        var player = videojs('my-player', {
+            techOrder: ["html5"],
+            autoplay: true,
+            controls: true,
+            fluid: true
+        });
+    </script>
 </body>
 </html>
