@@ -36,3 +36,29 @@ async function sendMessage() {
         appendMessage("⚠️ Erro inesperado. Tente novamente.", "bot");
     }
 }
+
+// Adiciona mensagem ao chat
+function appendMessage(message, sender) {
+    const chatBox = document.getElementById("chatBox");
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("message", sender);
+    messageElement.innerHTML = `<p>${message}</p>`;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Remove a última mensagem de um determinado remetente (exemplo: "⏳ Processando...")
+function clearLastMessage(sender) {
+    const chatBox = document.getElementById("chatBox");
+    const messages = chatBox.getElementsByClassName(sender);
+    if (messages.length > 0) {
+        chatBox.removeChild(messages[messages.length - 1]);
+    }
+}
+
+// Permite enviar mensagem ao pressionar "Enter"
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
