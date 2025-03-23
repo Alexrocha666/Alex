@@ -5,7 +5,7 @@ async function sendMessage() {
     appendMessage(userInput, "user");
     document.getElementById("userInput").value = "";
 
-    const apiKey = "FH_API_TOKEN"; // Substitua pela sua chave da API DeepAI
+    const apiKey = "b33e0efd-0cbc-4ecc-9452-86ced31c526f"; // Substitua pela sua chave da API DeepAI
 
     appendMessage("⏳ Processando...", "bot"); // Mostra que a IA está pensando
 
