@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <title>Meu Reprodutor de Vídeo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot IA</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <video width="100%" height="auto" controls>
-    <source src="https://bit.ly/33hmHqR" type="application/x-mpegURL">
-    Seu navegador não suporta o elemento de vídeo.
-  </video>
+    <div class="chat-container">
+        <div id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Digite sua mensagem..." onkeypress="if(event.key === 'Enter') sendMessage()">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
