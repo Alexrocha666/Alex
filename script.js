@@ -5,56 +5,34 @@ async function sendMessage() {
     appendMessage(userInput, "user");
     document.getElementById("userInput").value = "";
 
-    const apiKey = "b33e0efd-0cbc-4ecc-9452-86ced31c526f"; // Substitua pela sua chave da API DeepAI
+    const apiKey = "API_KEY"; // 🔴 Substitua pelo seu Token Hugging Face
+    const apiUrl = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
 
-    appendMessage("⏳ Processando...", "bot"); // Mostra que a IA está pensando
+    appendMessage("⏳ Processando...", "bot");
 
     try {
-        const response = await fetch('https://api.deepai.org/api/text-generator', {
-            method: 'POST',
+        const response = await fetch(apiUrl, {
+            method: "POST",
             headers: {
-                'Api-Key': apiKey,
-                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ text: userInput })
+            body: JSON.stringify({ inputs: userInput })
         });
 
         if (response.ok) {
             const data = await response.json();
-            const botReply = data.output || "Não consegui gerar uma resposta.";
-            clearLastMessage("bot"); // Remove "⏳ Processando..."
+            const botReply = data.generated_text || "Não consegui gerar uma resposta.";
+            clearLastMessage("bot");
             appendMessage(botReply, "bot");
         } else {
-            console.error('Erro na requisição:', response.status);
+            console.error("Erro na API:", response.status);
             clearLastMessage("bot");
-            appendMessage('Erro ao processar a mensagem.', 'bot');
+            appendMessage("❌ Erro ao processar a mensagem.", "bot");
         }
     } catch (error) {
-        console.error('Erro na requisição:', error);
+        console.error("Erro na requisição:", error);
         clearLastMessage("bot");
-        appendMessage('Erro inesperado.', 'bot');
-    }
-}
-
-function appendMessage(message, sender) {
-    const chatBox = document.getElementById("chatBox");
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("message", sender);
-    messageElement.innerHTML = `<p>${message}</p>`;
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function clearLastMessage(sender) {
-    const chatBox = document.getElementById("chatBox");
-    const messages = chatBox.getElementsByClassName(sender);
-    if (messages.length > 0) {
-        chatBox.removeChild(messages[messages.length - 1]);
-    }
-}
-
-function handleKeyPress(event) {
-    if (event.key === "Enter") {
-        sendMessage();
+        appendMessage("⚠️ Erro inesperado. Tente novamente.", "bot");
     }
 }
