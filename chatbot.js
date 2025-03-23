@@ -10,7 +10,7 @@ async function sendMessage() {
     const apiKey = "HF_API_KEY"; // Substitua pela sua chave de API
 
     try {
-        const response = await fetch('https://api-inference.huggingface.co/models/gpt2', {
+        const response = await fetch('https://api.deepai.org/api/text-generator', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
