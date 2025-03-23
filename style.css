@@ -1,7 +1,6 @@
-/* Estilo global */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(45deg, #1e3c72, #2a5298);
+    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,26 +8,21 @@ body {
     margin: 0;
 }
 
-/* Container do chat */
 .chat-container {
-    width: 400px;
-    background: #ffffff;
+    width: 350px;
+    background: white;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-/* Cabeçalho */
 header {
-    background: #2a5298;
+    background: #007bff;
     color: white;
-    text-align: center;
     padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
+    text-align: center;
 }
 
-/* Caixa de mensagens */
 .chat-box {
     height: 400px;
     overflow-y: auto;
@@ -37,76 +31,48 @@ header {
     flex-direction: column;
 }
 
-/* Animação para novas mensagens */
 .message {
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 10px;
     max-width: 80%;
-    word-wrap: break-word;
-    animation: fadeIn 0.3s ease-in-out;
 }
 
 .user {
+    align-self: flex-end;
     background: #007bff;
     color: white;
-    align-self: flex-end;
 }
 
 .bot {
-    background: #f1f1f1;
-    color: black;
     align-self: flex-start;
+    background: #e0e0e0;
 }
 
-/* Caixa de entrada */
 .input-container {
     display: flex;
     padding: 10px;
-    background: #f9f9f9;
     border-top: 1px solid #ddd;
 }
 
 input {
     flex: 1;
-    padding: 12px;
+    padding: 8px;
     border: none;
-    border-radius: 5px;
     outline: none;
-    font-size: 16px;
+    border-radius: 5px;
 }
 
 button {
-    padding: 12px;
-    margin-left: 10px;
-    border: none;
     background: #007bff;
     color: white;
-    cursor: pointer;
+    border: none;
+    padding: 8px 15px;
     border-radius: 5px;
-    font-size: 16px;
-    transition: 0.3s;
+    cursor: pointer;
+    margin-left: 5px;
 }
 
 button:hover {
     background: #0056b3;
-}
-
-/* Animação para mensagens */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsividade */
-@media (max-width: 450px) {
-    .chat-container {
-        width: 90%;
-    }
 }
