@@ -1,64 +1,21 @@
-async function sendMessage() {
-    const userInput = document.getElementById("userInput").value.trim();
-    if (!userInput) return;
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 
-    appendMessage(userInput, "user");
-    document.getElementById("userInput").value = "";
+let x = 50, y = 50;
+const speed = 5;
 
-    const apiKey = "API_KEY"; // 🔴 Substitua pelo seu Token Hugging Face
-    const apiUrl = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
+document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowUp") y -= speed;
+    if (event.key === "ArrowDown") y += speed;
+    if (event.key === "ArrowLeft") x -= speed;
+    if (event.key === "ArrowRight") x += speed;
+});
 
-    appendMessage("⏳ Processando...", "bot");
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${apiKey}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ inputs: userInput })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const botReply = data.generated_text || "Não consegui gerar uma resposta.";
-            clearLastMessage("bot");
-            appendMessage(botReply, "bot");
-        } else {
-            console.error("Erro na API:", response.status);
-            clearLastMessage("bot");
-            appendMessage("❌ Erro ao processar a mensagem.", "bot");
-        }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-        clearLastMessage("bot");
-        appendMessage("⚠️ Erro inesperado. Tente novamente.", "bot");
-    }
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "red";
+    ctx.fillRect(x, y, 20, 20);
+    requestAnimationFrame(gameLoop);
 }
 
-// Adiciona mensagem ao chat
-function appendMessage(message, sender) {
-    const chatBox = document.getElementById("chatBox");
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("message", sender);
-    messageElement.innerHTML = `<p>${message}</p>`;
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Remove a última mensagem de um determinado remetente (exemplo: "⏳ Processando...")
-function clearLastMessage(sender) {
-    const chatBox = document.getElementById("chatBox");
-    const messages = chatBox.getElementsByClassName(sender);
-    if (messages.length > 0) {
-        chatBox.removeChild(messages[messages.length - 1]);
-    }
-}
-
-// Permite enviar mensagem ao pressionar "Enter"
-function handleKeyPress(event) {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
-}
+gameLoop();
